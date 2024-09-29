@@ -22,7 +22,6 @@ public class JwtTokenService {
                 .claim("roles", authorities)//can also set a map
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
-                .issuer("https://www.devglan.com")
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
