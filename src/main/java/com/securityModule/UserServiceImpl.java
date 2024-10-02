@@ -1,6 +1,7 @@
 package com.securityModule;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,8 +21,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtTokenService jwtTokenService;
 
+   /* @Autowired
+    private AuthenticationProvider authenticationProvider;*/
     @Autowired
-    private AuthenticationProvider authenticationProvider;
+    private AuthenticationManager authenticationManager;
+
 
     @Override
     public User signup(User registerUser) {
@@ -31,7 +35,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(LoginDto loginDto) {
-        final Authentication authentication = authenticationProvider.authenticate(
+        /*final Authentication authentication = authenticationProvider.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getUsername(),
+                        loginDto.getPassword()
+                )
+        );*/
+        Authentication authentication =   authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsername(),
                         loginDto.getPassword()
